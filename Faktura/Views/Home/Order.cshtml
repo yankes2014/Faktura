@@ -21,7 +21,7 @@
 {
     <fieldset>
 
-        <div class="row col-md-4" style="padding-right: 0px; padding-left:0px">
+        <div class="row col-lg-4 col-md-4 col-sm-4 col-xs-12" style="padding-right: 0px; padding-left:0px">
             <legend>Dane firmy:</legend>
             <div class="editor-label">
                 @Html.LabelFor(m => m.Address)
@@ -47,6 +47,7 @@
             </div>
             <div class="editor-label">
                 @Html.LabelFor(m => m.NIP)
+
             </div>
             <div class="editor-field">
 
@@ -60,27 +61,27 @@
                 @Html.TextBoxFor(m => m.OwnerName)
             </div>
         </div>
-        <div class="row col-md-4" id="myForm" style="padding-right: 0px; padding-left:0px">
+        <div class="row col-lg-4 col-md-4 col-sm-4 col-xs-12" id="myForm" style="padding-right: 0px; padding-left:0px">
             <legend>Lista produktów:</legend>
-            <p id="addPet">+</p>
+            <p id="addNewProduct"><b>NacisnijByStworzyćProdukt+</b></p>
             @for (int i = 0; i < products.Count; i++)
             {
-                <div class="row col-md-12" style="padding-right: 0px; padding-left:0px">
-                    <div class="col-md-6">
+                <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px; padding-left:0px">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <b>@products.ElementAt(i).Name</b>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <input type="text" id="product@(i)" name="product@(i)" placeholder="0" value="0" />
                     </div>
                 </div>
             }
         </div>
 
-        <div class="row col-md-4" style="padding-right: 0px; padding-left:0px">
+        <div class="row col-lg-4 col-md-4 col-sm-4 col-xs-12" style="padding-right: 0px; padding-left:0px">
 
 
         </div>
-        <div class="row col-md-12" style="padding-right: 0px; padding-left:0px">
+        <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px; padding-left:0px">
             <br />
             <input type="submit" value="Wyślij" class="btn btn-primary active" />
         </div>
@@ -89,11 +90,11 @@
 
 <script>
     var a = 1;
-    document.getElementById("addPet").onclick = function (param) {
+    document.getElementById("addNewProduct").onclick = function (param) {
         var form = document.getElementById("myForm");
 
         var div = document.createElement("div");
-        div.classList.add("col-md-12", "klasa" + a, "row");
+        div.classList.add("col-lg-12", "col-md-12", "col-sm-12", "col-xs-12", "klasa" + a, "row");
         div.id = "klasa" + a;
         div.name = "klasa" + a;
         form.appendChild(div);
@@ -101,25 +102,25 @@
         var div1 = document.getElementById("klasa" + a);
 
         var divLabel = document.createElement("div");
-        divLabel.classList.add("col-md-12", "labelek" + a, "row");
+        divLabel.classList.add("col-lg-12", "col-md-12", "col-sm-12", "col-xs-12", "labelek" + a, "row");
         divLabel.id = "labelek" + a;
         divLabel.name = "labelek" + a;
 
         div1.appendChild(divLabel);
 
         var div2 = document.createElement("div");
-        div2.classList.add("col-md-4", "podKlasa" + a, "row");
+        div2.classList.add("col-lg-4", "col-md-4", "col-sm-4", "col-xs-12", "podKlasa" + a, "row");
         div2.id = "podKlasa" + a;
         div2.name = "podKlasa" + a;
 
         var div3 = document.createElement("div");
-        div3.classList.add("col-md-4", "podKlasadruga" + a, "row");
+        div3.classList.add("col-lg-4", "col-md-4", "col-sm-4", "col-xs-12", "podKlasadruga" + a, "row");
         div3.id = "podKlasadruga" + a;
         div3.name = "podKlasadruga" + a;
 
 
         var div4 = document.createElement("div");
-        div4.classList.add("col-md-4", "podKlasatrzecia" + a, "row");
+        div4.classList.add("col-lg-4", "col-md-4", "col-sm-4", "col-xs-12", "podKlasatrzecia" + a, "row");
         div4.id = "podKlasatrzecia" + a;
         div4.name = "podKlasatrzecia" + a;
 
