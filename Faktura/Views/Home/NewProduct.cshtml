@@ -1,0 +1,32 @@
+﻿@model Faktura.Model.Product
+
+@{
+    ViewBag.Title = "Tworzenie produktu";
+}
+
+<h2>Dodawanie produktu</h2>
+
+
+<div>
+    <form action="/Home/CreateProductForm" method="post" enctype="multipart/form-data">
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Name)
+        </div>
+
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Price)
+        </div>
+
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Price)
+        </div>
+        <br />
+
+        <p><input type="submit" value="Dodaj produkt do bazy!" class="btn btn-primary active" /></p>
+    </form>
+</div>

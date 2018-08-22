@@ -1,0 +1,255 @@
+﻿@model Faktura.Model.Invoice
+@{
+    ViewBag.Title = "Faktura";
+}
+
+<h2>Faktura</h2>
+
+
+@{
+    var invoice = (Faktura.Model.Invoice)ViewData["Faktura"];
+    var soldProducts = (HashSet<Faktura.Model.SoldProduct>)ViewData["SoldProducts"];
+}
+
+
+
+
+<div class="row col-md-12" style="padding-right: 0px; padding-left:0px">
+    <div class="row col-md-4" style="text-align:left">
+        <p><b>Wystawca:</b></p>
+        <p>
+            Imie:
+            <b>Dominik</b>
+        </p>
+        <p>
+            Nazwa firmy:
+            <b>DomFirm</b>
+        </p>
+        <p>
+            Siedziba firmy:
+            <b>Warszawa ul. Sybirakow 73 05-600</b>
+        </p>
+        <p>
+            NIP:
+            <b>828192812</b>
+        </p>
+        <br />
+        <p>
+            <b>Nabywca:</b>
+        </p>
+        <p>
+            Imie:
+            <b>@invoice.Firm.OwnerName</b>
+        </p>
+        <p>
+            Adres:
+            <b>@invoice.Firm.Address</b>
+        </p>
+        <p>
+            NIP:
+            <b>@invoice.Firm.NIP</b>
+        </p>
+        <p>
+            Nazwa firmy:
+            <b>@invoice.Firm.Name</b>
+        </p>
+        <p>
+            Mail:
+            <b>@invoice.Firm.Mail</b>
+        </p>
+    </div>
+    <div class="row col-md-4">
+
+    </div>
+    <div class="row col-md-4" style="text-align:right">
+        <p>
+            Miejsce Wystawienia:
+            <b>Zielona Góra</b>
+        </p>
+        <p>
+            Data Wystawienia:
+            <b>@invoice.DateOfCreation</b>
+        </p>
+        <br />
+
+        <p>
+            Forma Płatności:
+            <b>Przelew</b>
+        </p>
+        <p>
+            Termin Płatności:
+            <b>@invoice.DateOfCreation</b>
+        </p>
+    </div>
+</div>
+<div class="row col-md-12" style="padding-right: 0px; padding-left:0px">
+    <br />
+    <br />
+</div>
+
+<div class="row col-md-12" style="padding-right: 0px; padding-left:0px">
+    <div class="row col-md-6">
+        <div class="col-md-1" style="border:solid; border-width:3px; border-color: black;">
+            <p>
+                <b>LP</b>
+            </p>
+        </div>
+        <div class="col-md-2" style="border-top:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <p>
+                <b>PKWiU</b>
+            </p>
+        </div>
+        <div class="col-md-5" style="border-top:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <p>
+                <b>Nazwa towaru lub uslugi</b>
+            </p>
+        </div>
+        <div class="col-md-4" style="border-top:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <p>
+                <b>Cena netoo[zł]</b>
+            </p>
+        </div>
+    </div>
+
+    <div class="row col-md-3">
+        <div class="col-md-4" style="border-top:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <p>
+                <b>Ilość</b>
+            </p>
+        </div>
+        <div class="col-md-4" style="border-top:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <p>
+                <b>JM</b>
+            </p>
+        </div>
+        <div class="col-md-4" style="border-top:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <p>
+                <b>Netto</b>
+            </p>
+        </div>
+    </div>
+
+    <div class="row col-md-3">
+        <div class="col-md-4" style="border-top:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <p>
+                <b>Vat</b>
+            </p>
+        </div>
+        <div class="col-md-4" style="border-top:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <p>
+                <b>Vat</b>
+            </p>
+        </div>
+        <div class="col-md-4" style="border-top:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <p>
+                <b>Brutto[zł]</b>
+            </p>
+        </div>
+    </div>
+
+    @*uzupelnienie w petli produkty zakupione do faktury*@
+    @for (int i = 0; i < soldProducts.Count; i++)
+    {
+        <div class="row col-md-6">
+            <div class="col-md-1" style="border-left:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+                <p>
+                    <b>@i</b>
+                </p>
+            </div>
+            <div class="col-md-2" style="border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+                <p>
+                    <b>-</b>
+                </p>
+            </div>
+            <div class="col-md-5" style="border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+                <p>
+                    <b>@soldProducts.ElementAt(i).Product.Name</b>
+                </p>
+            </div>
+            <div class="col-md-4" style="border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+                <p>
+                    <b>@soldProducts.ElementAt(i).Product.Price</b>
+                </p>
+            </div>
+        </div>
+
+        <div class="row col-md-3">
+            <div class="col-md-4" style="border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+                <p>
+                    <b>@soldProducts.ElementAt(i).Count</b>
+                </p>
+            </div>
+            <div class="col-md-4" style="border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+                <p>
+                    <b>-</b>
+                </p>
+            </div>
+            <div class="col-md-4" style="border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+                <p>
+                    <b>@(@soldProducts.ElementAt(i).Product.Price * @soldProducts.ElementAt(i).Count)</b>
+                </p>
+            </div>
+        </div>
+
+        <div class="row col-md-3">
+            <div class="col-md-4" style="border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+                <p>
+                    <b>-</b>
+                </p>
+            </div>
+            <div class="col-md-4" style="border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+                <p>
+                    <b>-</b>
+                </p>
+            </div>
+            <div class="col-md-4" style="border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+                <p>
+                    <b>-</b>
+                </p>
+            </div>
+        </div>
+    }
+</div>
+<div class="row col-md-12" style="padding-right: 0px; padding-left:0px">
+    <br />
+    <br />
+</div>
+<div class="row col-md-12" style="padding-right: 0px; padding-left:0px">
+    <div class="row col-md-4">
+
+    </div>
+    <div class="row col-md-4">
+
+    </div>
+    <div class="row col-md-4">
+        <div class="col-md-3" style="border:solid; border-width:3px; border-color: black;">
+            <b>Netto</b>
+        </div>
+        <div class="col-md-3" style="border-top:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <b>Brutto</b>
+        </div>
+        <div class="col-md-6" style="border-top:solid; border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <b>Vat</b>
+        </div>
+    </div>
+</div>
+<div class="row col-md-12" style="padding-right: 0px; padding-left:0px">
+    <div class="row col-md-4">
+
+    </div>
+    <div class="row col-md-4">
+
+    </div>
+    <div class="row col-md-4">
+        <div class="col-md-3" style="border-right:solid; border-left:solid;  border-bottom:solid; border-width:3px; border-color: black;">
+            <b>@invoice.BruttoPrice</b>
+        </div>
+        <div class="col-md-3" style="border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <b>@invoice.BruttoPrice</b>
+        </div>
+        <div class="col-md-6" style=" border-right:solid; border-bottom:solid; border-width:3px; border-color: black;">
+            <b>@(0.81 * @invoice.BruttoPrice)</b>
+        </div>
+    </div>
+</div>
+

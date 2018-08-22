@@ -1,0 +1,77 @@
+﻿@model Faktura.Model.Firm
+
+
+
+@{
+    ViewBag.Title = "Zamówienie";
+}
+
+@{
+    var products = (HashSet<Faktura.Model.Product>)ViewData["Products"];
+}
+
+<h2>Zamówienie</h2>
+
+
+@using (Html.BeginForm("CreateInvoice", "Home", FormMethod.Post))
+{
+    <fieldset>
+
+        <div class="row col-md-4">
+            <legend>Dane firmy:</legend>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Address)
+            </div>
+            <div class="editor-field">
+
+                @Html.TextBoxFor(m => m.Address)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Mail)
+            </div>
+            <div class="editor-field">
+
+                @Html.TextBoxFor(m => m.Mail)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Name)
+            </div>
+            <div class="editor-field">
+
+                @Html.TextBoxFor(m => m.Name)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.NIP)
+            </div>
+            <div class="editor-field">
+
+                @Html.TextBoxFor(m => m.NIP)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.OwnerName)
+            </div>
+            <div class="editor-field">
+
+                @Html.TextBoxFor(m => m.OwnerName)
+            </div>
+        </div>
+        <div class="row col-md-4">
+            <legend>Lista produktów:</legend>
+
+            @for (int i = 0; i < products.Count; i++)
+            {
+                <div class="editor-label">
+                    <b>@products.ElementAt(i).Name</b>
+                </div>
+                <div class="editor-field">
+                    <input type="text" id="product@(i)" name="product@(i)" placeholder="0" value="0" />
+                </div>
+            }
+        </div>
+        <div class="row col-md-12">
+            <br/>
+            <input type="submit" value="Wyślij" class="btn btn-primary active" />
+        </div>
+    </fieldset>
+}

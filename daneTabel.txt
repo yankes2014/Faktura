@@ -1,0 +1,5 @@
+Produkty		dane o produkcie
+Firmy 			dane o firmie
+Faktury			dane o fakturze, id firmy
+SprzedaneProdukty	dane o sprzedanych produktach ilosc, idFaktury	
+
