@@ -106,31 +106,37 @@ namespace Faktura.Controllers
 
                 if (Request.Form["product" + i] != null)
                 {
-                    SoldProduct soldProduct = new SoldProduct
+                    if (int.Parse(Request.Form["product" + i]) != 0)
                     {
-                        Count = int.Parse(Request.Form["product" + i]),
-                        Product = products[i],
-                        ProductID = products[i].ID,
-                        Invoice = invoiceFromBase,
-                        InvoiceID = invoiceFromBase.ID
-                    };
-                    context.SoldProducts.Add(soldProduct);
-                    context.SaveChanges();
-                    soldProducts.Add(soldProduct);
+                        SoldProduct soldProduct = new SoldProduct
+                        {
+                            Count = int.Parse(Request.Form["product" + i]),
+                            Product = products[i],
+                            ProductID = products[i].ID,
+                            Invoice = invoiceFromBase,
+                            InvoiceID = invoiceFromBase.ID
+                        };
+                        context.SoldProducts.Add(soldProduct);
+                        context.SaveChanges();
+                        soldProducts.Add(soldProduct);
+                    }
                 }
                 else if (Request.Form["AmountNew" + t] != null)
                 {
-                    SoldProduct soldProduct = new SoldProduct
+                    if (int.Parse(Request.Form["AmountNew" + t]) != 0)
                     {
-                        Count = int.Parse(Request.Form["AmountNew" + t]),
-                        Product = products[i],
-                        ProductID = products[i].ID,
-                        Invoice = invoiceFromBase,
-                        InvoiceID = invoiceFromBase.ID
-                    };
-                    context.SoldProducts.Add(soldProduct);
-                    context.SaveChanges();
-                    soldProducts.Add(soldProduct);
+                        SoldProduct soldProduct = new SoldProduct
+                        {
+                            Count = int.Parse(Request.Form["AmountNew" + t]),
+                            Product = products[i],
+                            ProductID = products[i].ID,
+                            Invoice = invoiceFromBase,
+                            InvoiceID = invoiceFromBase.ID
+                        };
+                        context.SoldProducts.Add(soldProduct);
+                        context.SaveChanges();
+                        soldProducts.Add(soldProduct);
+                    }
                     t++;
                 }
 
