@@ -10,6 +10,10 @@
     var products = (HashSet<Faktura.Model.Product>)ViewData["Products"];
 }
 
+@{
+    int q = 0;
+}
+
 <h2>Zamówienie</h2>
 
 
@@ -17,7 +21,7 @@
 {
     <fieldset>
 
-        <div class="row col-md-4">
+        <div class="row col-md-4" style="padding-right: 0px; padding-left:0px">
             <legend>Dane firmy:</legend>
             <div class="editor-label">
                 @Html.LabelFor(m => m.Address)
@@ -56,22 +60,107 @@
                 @Html.TextBoxFor(m => m.OwnerName)
             </div>
         </div>
-        <div class="row col-md-4">
+        <div class="row col-md-4" id="myForm" style="padding-right: 0px; padding-left:0px">
             <legend>Lista produktów:</legend>
-
+            <p id="addPet">+</p>
             @for (int i = 0; i < products.Count; i++)
             {
-                <div class="editor-label">
-                    <b>@products.ElementAt(i).Name</b>
-                </div>
-                <div class="editor-field">
-                    <input type="text" id="product@(i)" name="product@(i)" placeholder="0" value="0" />
+                <div class="row col-md-12" style="padding-right: 0px; padding-left:0px">
+                    <div class="col-md-6">
+                        <b>@products.ElementAt(i).Name</b>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" id="product@(i)" name="product@(i)" placeholder="0" value="0" />
+                    </div>
                 </div>
             }
         </div>
-        <div class="row col-md-12">
-            <br/>
+
+        <div class="row col-md-4" style="padding-right: 0px; padding-left:0px">
+
+
+        </div>
+        <div class="row col-md-12" style="padding-right: 0px; padding-left:0px">
+            <br />
             <input type="submit" value="Wyślij" class="btn btn-primary active" />
         </div>
     </fieldset>
 }
+
+<script>
+    var a = 1;
+    document.getElementById("addPet").onclick = function (param) {
+        var form = document.getElementById("myForm");
+
+        var div = document.createElement("div");
+        div.classList.add("col-md-12", "klasa" + a, "row");
+        div.id = "klasa" + a;
+        div.name = "klasa" + a;
+        form.appendChild(div);
+
+        var div1 = document.getElementById("klasa" + a);
+
+        var divLabel = document.createElement("div");
+        divLabel.classList.add("col-md-12", "labelek" + a, "row");
+        divLabel.id = "labelek" + a;
+        divLabel.name = "labelek" + a;
+
+        div1.appendChild(divLabel);
+
+        var div2 = document.createElement("div");
+        div2.classList.add("col-md-4", "podKlasa" + a, "row");
+        div2.id = "podKlasa" + a;
+        div2.name = "podKlasa" + a;
+
+        var div3 = document.createElement("div");
+        div3.classList.add("col-md-4", "podKlasadruga" + a, "row");
+        div3.id = "podKlasadruga" + a;
+        div3.name = "podKlasadruga" + a;
+
+
+        var div4 = document.createElement("div");
+        div4.classList.add("col-md-4", "podKlasatrzecia" + a, "row");
+        div4.id = "podKlasatrzecia" + a;
+        div4.name = "podKlasatrzecia" + a;
+
+
+        div1.appendChild(div2);
+        div1.appendChild(div3);
+        div1.appendChild(div4);
+
+        var div5 = document.getElementById("podKlasa" + a);
+        var div6 = document.getElementById("podKlasadruga" + a);
+        var div7 = document.getElementById("podKlasatrzecia" + a);
+        var div8 = document.getElementById("labelek" + a);
+
+        var label = document.createElement("p");
+        label.value = "<b>Nowy produkt " + a + "</b>";
+        label.innerHTML = "<b>Nowy produkt " + a + "</b>";
+
+        div8.appendChild(label);
+
+        var input = document.createElement("input");
+        input.type = "text";
+        input.value = "Nazwa";
+        input.id = "NameNew" + a;
+        input.name = "NameNew" + a;
+
+        var br = document.createElement("br");
+        var input2 = document.createElement("input");
+        input2.type = "text";
+        input2.value = "Cena";
+        input2.id = "PriceNew" + a;
+        input2.name = "PriceNew" + a;
+
+        var input3 = document.createElement("input");
+        input3.type = "text";
+        input3.value = "Ilość";
+        input3.id = "AmountNew" + a;
+        input3.name = "AmountNew" + a;
+
+        div5.appendChild(input);
+        div6.appendChild(input2);
+        div7.appendChild(input3);
+
+        a++;
+    }</script>

@@ -44,11 +44,10 @@ namespace Faktura.Controllers
         /// <param name="firma"></param>
         /// <returns></returns>
         [HttpPost]
-        public RedirectResult CreateInvoice(Firm firma)
+        public RedirectResult CreateInvoice(Firm firm)
         {
-            //Dodanie firmy do bazy firm
-            Firm firm = firma;
 
+            //Dodanie firmy do bazy firm
             context.Firms.Add(firm);
             context.SaveChanges();
 
@@ -56,7 +55,7 @@ namespace Faktura.Controllers
             Invoice invoice = new Invoice();
 
             //Dopisanie firmy do faktury
-            invoice.Firm = context.Firms.Where(n => n.NIP == firm.NIP).FirstOrDefault();
+            invoice.Firm = context.Firms.Where(n => n.NIP == firm.NIP && n.Address == firm.Address && n.Mail == firm.Mail && n.OwnerName == firm.OwnerName).FirstOrDefault();
             invoice.FirmID = invoice.Firm.ID;
 
             //Dopisanie bieżącej daty do faktury
@@ -67,24 +66,45 @@ namespace Faktura.Controllers
             context.SaveChanges();
 
             //Pobranie faktury z bazy żeby mieć jej ID
-            //pobieramy ostatnią na ślepo co czasami jest niepoprawne
-            //można by w tabeli faktura stworzyć unikatowe pole
-            //np sprowadzając CreationDate do stringa
-            //i szyfrujac jakimś algorytmem z kluczem
-            //i wtedy można by wziąć z bazy 
-            //Invoice.Where(n=>n.Zaszyfrowane == invoice.Zaszyfrowane).FirstOrDefault
             var invoiceFromBase = context.Invoices.ToList().LastOrDefault();
+
+
+            //Tworzenie nowych produktów
+            //Tych które stworzyliśmy klikając +
+            //"NameNew PriceNew
+            List<string> newProductsNames = new List<string>();
+            List<string> newProductsPrices = new List<string>();
+            int h = 1;
+            while (Request.Form["NameNew" + h] != null)
+            {
+                newProductsNames.Add(Request.Form["NameNew" + h]);
+                newProductsPrices.Add(Request.Form["PriceNew" + h]);
+                Product product = new Product
+                {
+                    Name = Request.Form["NameNew" + h],
+                    Price = int.Parse(Request.Form["PriceNew" + h])
+                };
+                context.Products.Add(product);
+                context.SaveChanges();
+                h++;
+            }
+            //NameNew1
+
+            var qwe = 0;
 
             //Pobranie listy produktów z bazy
             var products = context.Products.ToList();
 
             //Tworzenie SoldProduct na podstawie danych z formularza
             //i danych z bazy produktów
+            //AmountNew
             List<SoldProduct> soldProducts = new List<SoldProduct>();
             int i = 0;
+            int t = 1;
             foreach (var item in products)
             {
-                if (int.Parse(Request.Form["product" + i]) != 0)
+
+                if (Request.Form["product" + i] != null)
                 {
                     SoldProduct soldProduct = new SoldProduct
                     {
@@ -98,7 +118,25 @@ namespace Faktura.Controllers
                     context.SaveChanges();
                     soldProducts.Add(soldProduct);
                 }
+                else if (Request.Form["AmountNew" + t] != null)
+                {
+                    SoldProduct soldProduct = new SoldProduct
+                    {
+                        Count = int.Parse(Request.Form["AmountNew" + t]),
+                        Product = products[i],
+                        ProductID = products[i].ID,
+                        Invoice = invoiceFromBase,
+                        InvoiceID = invoiceFromBase.ID
+                    };
+                    context.SoldProducts.Add(soldProduct);
+                    context.SaveChanges();
+                    soldProducts.Add(soldProduct);
+                    t++;
+                }
+
+
                 i++;
+
             }
 
 
